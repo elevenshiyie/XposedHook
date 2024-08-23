@@ -1,0 +1,8 @@
+该项目使用XposedHOOK应用程序中的Activity OnCreate方法来加载ImGui。
+添加Hook的程序Mainhook.java，然后直接在packageLis成员中添加包名。
+范围检查来挂钩程序。
+
+中文
+此项目使用XposedHOOK应用中创建时的活动方法实现加载ImGui
+添加被钩的程序MainHook.java然后在packageLis成员中直接增加程序包名
+作用域勾选要钩的程序即可
