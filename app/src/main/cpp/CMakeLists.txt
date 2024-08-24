@@ -24,7 +24,7 @@ add_library(imgui STATIC
         imgui/imgui_impl_android.cpp
         imgui/imgui_impl_opengl3.cpp)
 
-add_library(wind SHARED wind.cpp modmenu_native.cpp)
+add_library(wind SHARED wind.cpp)
 
 set_target_properties(wind PROPERTIES LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/../libs/${ANDROID_ABI})
 target_link_libraries(wind android local_dobby EGL GLESv2 imgui log)

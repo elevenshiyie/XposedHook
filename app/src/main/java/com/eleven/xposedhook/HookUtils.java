@@ -2,6 +2,8 @@ package com.eleven.xposedhook;
 
 import android.app.Activity;
 import android.app.Application;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.content.Context;
 import android.os.Bundle;
@@ -37,14 +39,14 @@ public class HookUtils {
         });
     }
 
-    public static void nativeHookInit(Context context) {
-        if(!NHook.loadSo(context))
+    public static void nativeHookInit(Context context)
+    {
+        if (!NHook.loadSo(context))
         {
-            Log.e("MainHook", "load so failed");
-            NHook.loadSo(context);
-        }
-        else {
-            NHook.initNativeHook(context);
+            new Handler(Looper.getMainLooper()).postDelayed(() ->
+            {
+                nativeHookInit(context);
+            }, 1000);
         }
     }
 

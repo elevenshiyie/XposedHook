@@ -1,6 +1,9 @@
 package com.eleven.xposedhook;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,15 +31,22 @@ public class MainHook implements IXposedHookLoadPackage {
                     lpparam.classLoader, "isModuleActive", XC_MethodReplacement.returnConstant(Boolean.TRUE));
         } else if (packageList.contains(lpparam.packageName)) {
             HookUtils.attachApplication(HookUtils::nativeHookInit);
-            HookUtils.attachActivity(activity -> {
-                createNativeMenu(activity);
-            });
+            HookUtils.attachActivity(activity -> createNativeMenu(activity));
         }
     }
 
     private static void createNativeMenu(Context activity) {
-        NativeSuface menu = new NativeSuface(activity);
-        CreateNativeWindow Wind = new CreateNativeWindow(activity);
-        Wind.CreateWindow();
+        if (activity != null)
+        {
+            new Handler(Looper.getMainLooper()).post(() ->
+            {
+                try {
+                    NativeSuface menu = new NativeSuface(activity);
+                    CreateNativeWindow wind = new CreateNativeWindow(activity);
+                    wind.CreateWindow();
+                } catch (Exception e) {
+                }
+            });
+        }
     }
 }

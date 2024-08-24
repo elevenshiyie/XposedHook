@@ -10,8 +10,6 @@ public class NHook
         return true;
     }
 
-    public static native void initNativeHook(Context context);
-
     public static native void init();
 
     public static native void resize(int width, int height);
